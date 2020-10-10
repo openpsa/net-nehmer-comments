@@ -1,0 +1,46 @@
+admin-welcome:
+    path: /
+    defaults: { _controller: 'net_nehmer_comments_handler_admin::welcome' }
+
+view-comments:
+    path: /comment/{guid}/
+    defaults: { _controller: 'net_nehmer_comments_handler_view::comments' }
+    requirements: { guid: '[0-9a-f]{21,80}' }
+
+view-comments-nonempty:
+    path: /comment-nonempty/{guid}/
+    defaults: { _controller: 'net_nehmer_comments_handler_view::comments' }
+    requirements: { guid: '[0-9a-f]{21,80}' }
+
+view-comments-custom:
+    path: /comment/{guid}/{view}/
+    defaults: { _controller: 'net_nehmer_comments_handler_view::comments' }
+    requirements: { guid: '[0-9a-f]{21,80}' }
+
+config:
+    path: /config/
+    defaults: { _controller: 'midcom_baseclasses_components_handler_configuration::config' }
+
+moderate:
+    path: /moderate/{status}/
+    defaults: { _controller: 'net_nehmer_comments_handler_admin::moderate' }
+
+moderate_ajax:
+    path: /moderate/ajax/{status}/
+    defaults: { _controller: 'net_nehmer_comments_handler_admin::moderate_ajax' }
+
+report_abuse:
+    path: /report/abuse/{guid}/
+    defaults: { _controller: 'net_nehmer_comments_handler_moderate::report_abuse' }
+    methods: [POST]
+
+report_not_abuse:
+    path: /report/not_abuse/{guid}/
+    defaults: { _controller: 'net_nehmer_comments_handler_moderate::not_abuse' }
+    methods: [POST]
+
+confirm_report:
+    path: /report/{action}/{guid}/
+    defaults: { _controller: 'net_nehmer_comments_handler_moderate::confirm_report' }
+    requirements: { action: 'confirm_abuse|confirm_junk'}
+    methods: [POST]
